@@ -2,7 +2,7 @@
 // Example component using dynamic themes
 import React, { useState } from 'react';
 import { lightTheme, darkTheme, forestTheme, fireTheme } from './components/Theme';
-
+import themeState from './context/themeState';
 
 const DynamicThemedComponent = () => {
   const [currentTheme, setCurrentTheme] = useState(lightTheme);
@@ -13,7 +13,7 @@ const DynamicThemedComponent = () => {
 
   return (
   <>
- 
+       <themeState/>
     <div
       className="bg-primary text-accent flex flex-col"
       style={{ backgroundColor: currentTheme.primary, color: currentTheme.accent }}

@@ -1,17 +1,17 @@
 "use client"
 import ThemeContext from "./themeContext";
+import { lightTheme, darkTheme, forestTheme, fireTheme } from '../components/Theme';
+import { useState } from "react";
 
 const themeState =(props) =>{
 
-    const state = {
-        primary: '#333333',
-        secondary: '#1a1a1a',
-
-    }
+    
+    const [theme, setTheme] = useState(fireTheme)
 
     return(
         <>
-        <ThemeContext.Provider value={state} >
+        
+        <ThemeContext.Provider value={theme} >
             {props.children}
         </ThemeContext.Provider>
         </>
