@@ -1,20 +1,25 @@
 "use client"
 
-// themeState.js
-// themeState.js
+
 import React, { useState, useEffect, useCallback } from "react";
 import ThemeContext from "./themeContext";
 import { lightTheme, darkTheme, forestTheme, fireTheme } from '../components/Theme';
 
 const ThemeState = (props) => {
-  // Check if localStorage is available
-  const isLocalStorageAvailable = typeof window !== 'undefined' && window.localStorage;
 
-  // Retrieve theme from local storage or use the default theme (fireTheme)
-  const storedTheme = isLocalStorageAvailable ? localStorage.getItem('theme') : null;
-  const initialTheme = storedTheme ? JSON.parse(storedTheme) : fireTheme;
 
-  const [theme, setTheme] = useState(initialTheme);
+  const [theme, setTheme] = useState(lightTheme);
+
+
+    
+    useEffect(() => {
+        
+        const storedTheme = localStorage.getItem('theme');
+          const initialTheme = storedTheme ? JSON.parse(storedTheme) : lightTheme;
+            setTheme(initialTheme); 
+        
+      }, []);
+    
 
   const switchTheme = useCallback((selectedTheme) => {
     let newTheme;
@@ -35,16 +40,13 @@ const ThemeState = (props) => {
     }
 
     setTheme(newTheme);
+    console.log(newTheme)
 
-    // Save selected theme to local storage if available
-    isLocalStorageAvailable && localStorage.setItem('theme', JSON.stringify(newTheme));
-  }, [isLocalStorageAvailable]);
+  
+  localStorage.setItem('theme', JSON.stringify(newTheme));
+  }, []);
 
-  // useEffect to update the theme in local storage when it changes
-  useEffect(() => {
-    // Update local storage if available
-    isLocalStorageAvailable && localStorage.setItem('theme', JSON.stringify(theme));
-  }, [isLocalStorageAvailable, theme]);
+
 
   return (
     <ThemeContext.Provider value={{ theme, switchTheme }}>
