@@ -1,30 +1,28 @@
 "use client"
 // Example component using dynamic themes
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { lightTheme, darkTheme, forestTheme, fireTheme } from './components/Theme';
-import themeState from './context/themeState';
+import themeContext from './context/themeContext';
+// import ThemeState from './context/themeState';
+import About from './components/about';
+import Link from 'next/link'
 
 const DynamicThemedComponent = () => {
-  const [currentTheme, setCurrentTheme] = useState(lightTheme);
-
-  const switchTheme = (theme) => {
-    setCurrentTheme(theme);
-  };
+  const { switchTheme, theme } = useContext(themeContext);
 
   return (
   <>
-       <themeState/>
-    <div
-      className="bg-primary text-accent flex flex-col"
-      style={{ backgroundColor: currentTheme.primary, color: currentTheme.accent }}
-    >
+      
+    <div className="bg-primary text-accent flex flex-col" style={{ backgroundColor: theme.primary, color: theme.accent }} >
       <p className="text-secondary">This is a dynamically themed component.</p>
-      <button onClick={() => switchTheme(lightTheme)}>Light Theme</button>
-      <button onClick={() => switchTheme(darkTheme)}>Dark Theme</button>
-      <button onClick={() => switchTheme(forestTheme)}>Forest Theme</button>
-      <button onClick={() => switchTheme(fireTheme)}>Fire Theme</button>
+      <button onClick={() => switchTheme('light')}>Light Theme</button>
+      <button onClick={() => switchTheme('dark')}>Dark Theme</button>
+      <button onClick={() => switchTheme('forest')}>Forest Theme</button>
+      <button onClick={() => switchTheme('fire')}>Fire Theme</button>
     </div>
-    </>
+      <About/>
+      <Link href="/about">About</Link>
+    </>  
   );
 };
 
