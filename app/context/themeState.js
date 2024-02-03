@@ -13,12 +13,18 @@ const ThemeState = (props) => {
 
 
     useEffect(() => {
-
         const storedTheme = localStorage.getItem('theme');
-        const initialTheme = storedTheme ? JSON.parse(storedTheme) : light;
-        setTheme(initialTheme);
-
-    }, []);
+        // console.log('Stored Theme:', storedTheme);
+      
+        try {
+          const initialTheme = storedTheme != null ? JSON.parse(storedTheme) : light;
+          setTheme(initialTheme);
+        } catch (error) {
+          console.error('Error parsing stored theme:', error);
+          // Handle the error or set a default theme
+          setTheme(light);
+        }
+      }, []);
 
 
     const switchTheme = useCallback((selectedTheme) => {
